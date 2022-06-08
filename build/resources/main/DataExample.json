@@ -1,0 +1,64 @@
+{
+  "station": {
+    "dataSource": "Google",
+    "dataSourceId": 1,
+    "dataSourceStationId": "Google-Cluj-1",
+    "name": "ETECNIC",
+    "location": {
+      "lat": 46.76207,
+      "lng": 23.57863
+    },
+    "address": {
+      "countryCode": "RO",
+      "country": "Romania",
+      "city": "Cluj-Napoca",
+      "street": "Strada Păstorului",
+      "houseNumber": "9"
+    },
+    "operatingSchedule": {
+      "hours": [
+        "Mon - Sun: 00:00 - 24:00"
+      ],
+      "currentStatus": "OPEN"
+    },
+    "detailedInformation": {
+      "operator": "ETECNIC",
+      "access": "PUBLIC",
+      "authentications": [
+        "RFID",
+        "APP"
+      ],
+      "chargingPoints": [
+        {
+          "plugs": [
+            {
+              "plugType": "TYP2",
+              "phase": "AC",
+              "highPowerCharging": false,
+              "power": 12,
+              "current": 32.0,
+              "voltage": 230.0,
+              "status": "Online"
+            },
+            {
+              "plugType": "COMBOTYP2",
+              "phase": "DC",
+              "highPowerCharging": true,
+              "power": 350,
+              "current": 500.0,
+              "voltage": 920.0,
+              "status": "Online"
+            }
+          ]
+        }
+      ]
+    },
+    "availability": {
+      "status": "FREE"
+    },
+    "contact": {
+      "website": "https://etecnic.es"
+    },
+    "distance": 696.069827050937
+  }
+}
