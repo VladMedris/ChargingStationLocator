@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class StationBE {
+public class SimpleStationBE {
 
     @JsonProperty("dataSource")
     private String dataSource;
@@ -28,21 +28,9 @@ public class StationBE {
     @JsonProperty("address")
     private AddressBE address;
 
-    @JsonProperty("operatingSchedule")
-    private OperatingScheduleBE operatingSchedule;
-
-    @JsonProperty("detailedInformation")
-    private DetailedInformationBE detailedInformation;
-
-    @JsonProperty("availability")
-    private AvailabilityBE availability;
-
     @JsonProperty("contact")
     private ContactBE contact;
 
     @JsonProperty("distance")
     private float distance;
-
-    @JsonProperty("plugs")
-    private List<PlugsBE> plugs;
 }

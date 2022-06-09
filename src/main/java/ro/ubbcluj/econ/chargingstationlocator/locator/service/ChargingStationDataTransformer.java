@@ -1,7 +1,6 @@
 package ro.ubbcluj.econ.chargingstationlocator.locator.service;
 
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.ubbcluj.econ.chargingstationlocator.locator.entity.*;
@@ -13,11 +12,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor(onConstructor_ = { @Autowired})
 public class ChargingStationDataTransformer {
 
-    public GetStationResponseBE transform(final List<ChargingStationData> dataList){
-        final List<StationBE> transformedData = Optional.ofNullable(dataList)
+    public GetStationResponseBE transformDetailedData(final List<ChargingStationData> dataList){
+        final List<DetailedStationBE> transformedData = Optional.ofNullable(dataList)
                 .orElse(Collections.emptyList())
                 .stream()
-                .map(this::createStation)
+                .map(this::createDetailedStation)
                 .collect(Collectors.toList());
 
         return GetStationResponseBE.builder()
@@ -25,7 +24,19 @@ public class ChargingStationDataTransformer {
                 .build();
     }
 
-    private List<PlugsBE> testTransformPlugs(final List<PlugData> dataList){
+    public GetStationResponseBE transformSimpleData(final List<ChargingStationData> dataList){
+        final List<SimpleStationBE> transformedData = Optional.ofNullable(dataList)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(this::createSimpleStation)
+                .collect(Collectors.toList());
+
+        return GetStationResponseBE.builder()
+                .simpleData(transformedData)
+                .build();
+    }
+
+    private List<PlugsBE> transformPlugs(final List<PlugData> dataList){
         return Optional.ofNullable(dataList)
                 .orElse(Collections.emptyList())
                 .stream()
@@ -91,8 +102,8 @@ public class ChargingStationDataTransformer {
                 .build();
     }
 
-    private StationBE createStation(final ChargingStationData data){
-        return StationBE.builder()
+    private DetailedStationBE createDetailedStation(final ChargingStationData data){
+        return DetailedStationBE.builder()
                 .dataSource("Google")
                 .dataSourceId(1)
                 .stationId(String.valueOf(data.getStationId()))
@@ -103,7 +114,19 @@ public class ChargingStationDataTransformer {
                 .detailedInformation(createDetailedInformation(data))
                 .availability(createAvailability(data))
                 .contact(createContact(data))
-                .plugs(testTransformPlugs(new ArrayList<>(data.getPlugData())))
+                .plugs(transformPlugs(new ArrayList<>(data.getPlugData())))
+                .build();
+    }
+
+    private SimpleStationBE createSimpleStation(final ChargingStationData data){
+        return SimpleStationBE.builder()
+                .dataSource("Google")
+                .dataSourceId(1)
+                .stationId(String.valueOf(data.getStationId()))
+                .name(String.valueOf(data.getName()))
+                .location(createLocation(data))
+                .address(createAddress(data))
+                .contact(createContact(data))
                 .build();
     }
 }
