@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class StationBE {
@@ -40,4 +42,7 @@ public class StationBE {
 
     @JsonProperty("distance")
     private float distance;
+
+    @JsonProperty("plugs")
+    private List<PlugsBE> plugs;
 }

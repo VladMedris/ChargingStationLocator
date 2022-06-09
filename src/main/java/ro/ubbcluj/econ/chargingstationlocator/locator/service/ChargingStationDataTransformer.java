@@ -1,14 +1,12 @@
 package ro.ubbcluj.econ.chargingstationlocator.locator.service;
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.ubbcluj.econ.chargingstationlocator.locator.entity.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +24,26 @@ public class ChargingStationDataTransformer {
                 .data(transformedData)
                 .build();
     }
+
+    private List<PlugsBE> testTransformPlugs(final List<PlugData> dataList){
+        return Optional.ofNullable(dataList)
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(this::createPlugs)
+                .collect(Collectors.toList());
+    }
+
+    private PlugsBE createPlugs(final PlugData plugData){
+        return PlugsBE.builder()
+                .plugType(plugData.getPlugType())
+                .phase(plugData.getPhase())
+                .highPowerCharging(plugData.isHighPower())
+                .voltage(plugData.getElectricInfoData().getVoltage())
+                .current(plugData.getElectricInfoData().getCurrent())
+                .power(plugData.getElectricInfoData().getPower())
+                .build();
+    }
+
 
     private AddressBE createAddress(final ChargingStationData data){
         return AddressBE.builder()
@@ -54,35 +72,15 @@ public class ChargingStationDataTransformer {
     private DetailedInformationBE createDetailedInformation(final ChargingStationData data){
         return DetailedInformationBE.builder()
                 .operator("operator placeholder")
-                .access(String.valueOf(data.getAccess()))
-                .service(String.valueOf(data.getService()))
-                .chargingPoints(plugsPlaceholder(data))
-                .build();
-    }
-
-    //replace
-    private List<PlugsBE> plugsPlaceholder(final ChargingStationData data){
-        List<PlugsBE> testList = new ArrayList<>();
-        testList.add(createPlugs(data));
-        testList.add(createPlugs(data));
-        return testList;
-    }
-
-    private PlugsBE createPlugs(ChargingStationData data){
-        return PlugsBE.builder()
-                .highPowerCharging(data.isHighPower())
-                .current(data.getCurrent())
-                .power(data.getPower())
-                .voltage(data.getVoltage())
-                .plugType(String.valueOf(data.getPlugType()))
-                .phase(String.valueOf(data.getPhase()))
+                .access(String.valueOf(data.getAccessData().getAccess()))
+                .service(String.valueOf(data.getAccessData().getService()))
                 .build();
     }
 
     private AvailabilityBE createAvailability(final ChargingStationData data){
         return AvailabilityBE.builder()
-                .status(String.valueOf(data.getStatus()))
-                .reservable(data.isReservable())
+                .status(String.valueOf(data.getAvailabilityData().getStatus()))
+                .reservable(data.getAvailabilityData().isReservable())
                 .build();
     }
 
@@ -105,6 +103,7 @@ public class ChargingStationDataTransformer {
                 .detailedInformation(createDetailedInformation(data))
                 .availability(createAvailability(data))
                 .contact(createContact(data))
+                .plugs(testTransformPlugs(new ArrayList<>(data.getPlugData())))
                 .build();
     }
 }

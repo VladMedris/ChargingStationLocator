@@ -11,11 +11,13 @@ import ro.ubbcluj.econ.chargingstationlocator.locator.entity.ChargingStationData
 import java.util.List;
 
 @Repository
-public interface QueryDatabase extends JpaRepository<ChargingStationData, Integer> {
+public interface QueryDatabase extends JpaRepository<ChargingStationData, Long> {
 
     @Procedure
     List<ChargingStationData> findStationById(String id);
 
     @Procedure
     List<ChargingStationData> findStationByGeolocation(float latitude, float longitude, int distance);
+
+    //List<ChargingStationData> findAll();
 }

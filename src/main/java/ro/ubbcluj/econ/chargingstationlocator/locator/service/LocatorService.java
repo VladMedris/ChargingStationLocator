@@ -11,6 +11,7 @@ import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationByIdReque
 import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationResponseBE;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor(onConstructor_ = { @Autowired})
@@ -37,9 +38,16 @@ public class LocatorService {
         float longitude = getStationsByGeolocationRequest.getLongitude();
         int distance = getStationsByGeolocationRequest.getDistance();
 
-        final List<ChargingStationData> stations = queryDatabase.findStationByGeolocation(latitude, longitude, distance);
+        final List<ChargingStationData> stations = queryDatabase.findStationByGeolocation(latitude, longitude, distance).stream().distinct().collect(Collectors.toList());
         return transformer.transform(stations);
 
     }
+
+    //un translator service in package service - in resources pun files cu translations (un file en un file ro, mapare intre cheie si traducere)
+    //(hereChargingMapping in OPS)
+    //chargingV5Helper in OPS - la mine e translation service
+
+    //
+
 
 }

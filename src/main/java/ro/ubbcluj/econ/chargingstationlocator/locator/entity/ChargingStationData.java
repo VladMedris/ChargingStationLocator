@@ -4,10 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(schema = "chargingstationsdatabase", name = "charging_stations")
+@Table(name = "charging_stations")
 @Data
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,7 +18,7 @@ public class ChargingStationData implements Serializable {
     @Column
     private int id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "station_id")
@@ -51,36 +51,23 @@ public class ChargingStationData implements Serializable {
     @Column(name = "longitude")
     private float longitude;
 
-    @Column(name = "plug_status")
-    private String plugStatus;
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    @JoinTable(name = "charging_stations_has_plugs",
+            joinColumns =@JoinColumn(name = "charging_stations_id"),
+            inverseJoinColumns = @JoinColumn(name = "plugs_id"))
+    private Set<PlugData> plugData;
 
-    @Column(name = "plug_type")
-    private String plugType;
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
+    @JoinColumn(name = "access_status_id")
+    private AccessData accessData;
 
-    @Column(name = "phase")
-    private String phase;
+    @EqualsAndHashCode.Exclude
+    @ManyToOne
+    @JoinColumn(name = "availability_status_id")
+    private AvailabilityData availabilityData;
 
-    @Column(name = "high_power")
-    private boolean highPower;
 
-    @Column(name = "power")
-    private int power;
 
-    @Column(name = "current")
-    private int current;
-
-    @Column(name = "voltage")
-    private int voltage;
-
-    @Column(name = "access")
-    private String access;
-
-    @Column(name = "service")
-    private String service;
-
-    @Column(name = "status")
-    private String status;
-
-    @Column(name = "reservable")
-    private boolean reservable;
 }
