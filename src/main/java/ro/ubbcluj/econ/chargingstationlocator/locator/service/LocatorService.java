@@ -1,16 +1,14 @@
 package ro.ubbcluj.econ.chargingstationlocator.locator.service;
 
+import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationsByGeolocationRequest;
+import ro.ubbcluj.econ.chargingstationlocator.locator.entity.*;
 import ro.ubbcluj.econ.chargingstationlocator.locator.repository.QueryDatabase;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.ChargingStationData;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationByIdRequest;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationResponseBE;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,5 +60,10 @@ public class LocatorService {
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Unexpected business-case header value: " + businessCase.toLowerCase());
         }
+    }
+
+
+    public void deleteStationById (DeleteStationByIdRequest deleteStationByIdRequest){
+        queryDatabase.deleteStationById(deleteStationByIdRequest.getId());
     }
 }

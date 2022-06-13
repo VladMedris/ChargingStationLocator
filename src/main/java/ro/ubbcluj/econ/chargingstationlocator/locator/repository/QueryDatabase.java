@@ -14,15 +14,18 @@ import java.util.List;
 public interface QueryDatabase extends JpaRepository<ChargingStationData, Long> {
 
     @Procedure
-    List<ChargingStationData> findStationByIdDetailedFormat(String id);
+    List<ChargingStationData> findStationByIdDetailedFormat(String ids);
 
     @Procedure
-    List<ChargingStationData> findStationByIdSimpleFormat(String id);
+    List<ChargingStationData> findStationByIdSimpleFormat(String ids);
 
     @Procedure
     List<ChargingStationData> findStationByGeolocationDetailedFormat(float latitude, float longitude, int distance);
 
     @Procedure
     List<ChargingStationData> findStationByGeolocationSimpleFormat(float latitude, float longitude, int distance);
+
+    @Procedure
+    void deleteStationById(int id);
 
 }

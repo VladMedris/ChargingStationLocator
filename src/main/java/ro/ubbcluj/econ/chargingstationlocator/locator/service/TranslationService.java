@@ -2,10 +2,10 @@ package ro.ubbcluj.econ.chargingstationlocator.locator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ro.ubbcluj.econ.chargingstationlocator.util.TranslationsMapping;
 
-@Component
+@Service
 @EnableConfigurationProperties(value = TranslationsMapping.class)
 public class TranslationService {
 
