@@ -115,6 +115,7 @@ public class ChargingStationDataTransformer {
                 .availability(createAvailability(data))
                 .contact(createContact(data))
                 .plugs(transformPlugs(new ArrayList<>(data.getPlugData())))
+  //              .distance(createDistance) //in transformerul care face statie - fac metoda si o apelez
                 .build();
     }
 

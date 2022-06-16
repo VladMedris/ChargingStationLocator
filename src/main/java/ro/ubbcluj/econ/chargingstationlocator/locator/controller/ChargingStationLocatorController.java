@@ -2,14 +2,9 @@ package ro.ubbcluj.econ.chargingstationlocator.locator.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.DeleteStationByIdRequest;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationByIdRequest;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationResponseBE;
-import ro.ubbcluj.econ.chargingstationlocator.locator.entity.GetStationsByGeolocationRequest;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import ro.ubbcluj.econ.chargingstationlocator.locator.entity.*;
 import ro.ubbcluj.econ.chargingstationlocator.locator.service.LocatorService;
 
 import javax.validation.Valid;
@@ -35,11 +30,16 @@ public class ChargingStationLocatorController {
         return locatorService.getStationByGeolocation(getStationsByGeolocationRequest, businessCase);
     }
 
-    @DeleteMapping("/v1/stations")
+    @DeleteMapping("/v1/station")
     @Valid
     void deleteStationById(final DeleteStationByIdRequest deleteStationByIdRequest){
        locatorService.deleteStationById(deleteStationByIdRequest);
     }
 
+    @PutMapping(value = "/v1/updateStationById")
+    @Valid
+    public GetStationResponseBE updateStationByIdRequest(final UpdateStationByIdRequest updateStationByIdRequest, @RequestBody final DetailedStationBE chargingStationData){
+        return locatorService.updateStationByIdRequest(updateStationByIdRequest,chargingStationData);
+    }
 
 }

@@ -16,7 +16,7 @@ public class ChargingStationData implements Serializable {
 
     @Id
     @Column
-    private int id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -67,7 +67,5 @@ public class ChargingStationData implements Serializable {
     @ManyToOne
     @JoinColumn(name = "availability_status_id")
     private AvailabilityData availabilityData;
-
-
 
 }

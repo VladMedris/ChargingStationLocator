@@ -10,7 +10,9 @@ import org.springframework.web.server.ResponseStatusException;
 import ro.ubbcluj.econ.chargingstationlocator.locator.entity.*;
 import ro.ubbcluj.econ.chargingstationlocator.locator.repository.QueryDatabase;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +21,7 @@ public class LocatorService {
 
     private final QueryDatabase queryDatabase;
     private final ChargingStationDataTransformer transformer;
+    private final ChargingReverseTransformer reverseTransformer;
     private final TranslationService translationService;
 
     @Transactional
@@ -65,5 +68,14 @@ public class LocatorService {
 
     public void deleteStationById (DeleteStationByIdRequest deleteStationByIdRequest){
         queryDatabase.deleteStationById(deleteStationByIdRequest.getId());
+    }
+
+    public GetStationResponseBE updateStationByIdRequest(UpdateStationByIdRequest updateStationByIdRequest, DetailedStationBE stationBE){
+        Optional<ChargingStationData> stationToUpdateOpt = queryDatabase.findById(updateStationByIdRequest.getId());
+        if(stationToUpdateOpt.isPresent()) {
+            ChargingStationData transformedStation = reverseTransformer.createStation(stationToUpdateOpt.get(), stationBE);
+            return transformer.transformSimpleData(Collections.singletonList(queryDatabase.save(transformedStation)));
+        }
+        return null;
     }
 }

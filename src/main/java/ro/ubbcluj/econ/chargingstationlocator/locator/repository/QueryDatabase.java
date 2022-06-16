@@ -28,4 +28,7 @@ public interface QueryDatabase extends JpaRepository<ChargingStationData, Long> 
     @Procedure
     void deleteStationById(int id);
 
+    @Procedure
+    ChargingStationData updateStationById(int id);
+
 }

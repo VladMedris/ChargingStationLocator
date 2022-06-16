@@ -30,4 +30,9 @@ public class GetStationsByGeolocationRequest {
     @NotNull
     @Range(min = 1, max = 1000, message = "Distance should be between 1 and 1000")
     private int distance;
+
+    @Parameter(name = "language", in = ParameterIn.QUERY)
+    @NotNull
+    @Range(min = 1, max = 10, message = "Language should be between 1 and 10")
+    private String language;
 }
