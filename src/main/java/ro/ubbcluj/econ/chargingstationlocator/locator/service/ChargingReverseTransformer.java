@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.ubbcluj.econ.chargingstationlocator.locator.entity.*;
 
-
 @Service
 @RequiredArgsConstructor(onConstructor_ = { @Autowired})
 public class ChargingReverseTransformer {

@@ -16,27 +16,27 @@ public class ChargingStationLocatorController {
 
     private final LocatorService locatorService;
 
-    @GetMapping("/v1/stationById")
+    @GetMapping("charging-station-locator/clients/v1/stationById")
     @Valid
     public GetStationResponseBE getStationById(final GetStationByIdRequest getStationByIdRequest,
                                                @RequestHeader(value = "business-case") String businessCase){
         return locatorService.getStationByIdResponse(getStationByIdRequest, businessCase);
     }
 
-    @GetMapping("/v1/stationsByGeolocation")
+    @GetMapping("charging-station-locator/clients/v1/stationsByGeolocation")
     @Valid
     public GetStationResponseBE getStationByGeolocationRequest(final GetStationsByGeolocationRequest getStationsByGeolocationRequest,
                                                                @RequestHeader(value = "business-case") String businessCase){
         return locatorService.getStationByGeolocation(getStationsByGeolocationRequest, businessCase);
     }
 
-    @DeleteMapping("/v1/station")
+    @DeleteMapping("charging-station-locator/admin/v1/station")
     @Valid
     void deleteStationById(final DeleteStationByIdRequest deleteStationByIdRequest){
        locatorService.deleteStationById(deleteStationByIdRequest);
     }
 
-    @PutMapping(value = "/v1/updateStationById")
+    @PutMapping(value = "charging-station-locator/admin/v1/updateStationById")
     @Valid
     public GetStationResponseBE updateStationByIdRequest(final UpdateStationByIdRequest updateStationByIdRequest, @RequestBody final DetailedStationBE chargingStationData){
         return locatorService.updateStationByIdRequest(updateStationByIdRequest,chargingStationData);

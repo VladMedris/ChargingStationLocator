@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.ubbcluj.econ.chargingstationlocator.locator.entity.*;
 
+import java.awt.geom.Point2D;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -115,7 +116,7 @@ public class ChargingStationDataTransformer {
                 .availability(createAvailability(data))
                 .contact(createContact(data))
                 .plugs(transformPlugs(new ArrayList<>(data.getPlugData())))
-  //              .distance(createDistance) //in transformerul care face statie - fac metoda si o apelez
+                //.distance(CalculateDistance(x1, y1, data.getLatitude(), data.getLongitude()))
                 .build();
     }
 
@@ -129,5 +130,9 @@ public class ChargingStationDataTransformer {
                 .address(createAddress(data))
                 .contact(createContact(data))
                 .build();
+    }
+
+    private double CalculateDistance(double x1, double y1, double x2, double y2){
+        return Point2D.distance(x1, y1, x2, y2);
     }
 }
