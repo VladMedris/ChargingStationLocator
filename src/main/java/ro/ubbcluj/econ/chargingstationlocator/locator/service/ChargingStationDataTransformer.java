@@ -10,7 +10,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor(onConstructor_ = { @Autowired})
 public class ChargingStationDataTransformer {
 
     public GetStationResponseBE transformDetailedData(final List<ChargingStationData> dataList){
@@ -83,7 +82,7 @@ public class ChargingStationDataTransformer {
 
     private DetailedInformationBE createDetailedInformation(final ChargingStationData data){
         return DetailedInformationBE.builder()
-                .operator("operator placeholder")
+                .operator("Charging Station Locator")
                 .access(String.valueOf(data.getAccessData().getAccess()))
                 .service(String.valueOf(data.getAccessData().getService()))
                 .build();
@@ -99,7 +98,7 @@ public class ChargingStationDataTransformer {
     private ContactBE createContact(final ChargingStationData data){
         return ContactBE.builder()
                 .contact(String.valueOf(data.getContact()))
-                .phone("phone placeholder")
+                .phone("+40 746056655")
                 .build();
     }
 
@@ -116,7 +115,6 @@ public class ChargingStationDataTransformer {
                 .availability(createAvailability(data))
                 .contact(createContact(data))
                 .plugs(transformPlugs(new ArrayList<>(data.getPlugData())))
-                //.distance(CalculateDistance(x1, y1, data.getLatitude(), data.getLongitude()))
                 .build();
     }
 
@@ -130,9 +128,5 @@ public class ChargingStationDataTransformer {
                 .address(createAddress(data))
                 .contact(createContact(data))
                 .build();
-    }
-
-    private double CalculateDistance(double x1, double y1, double x2, double y2){
-        return Point2D.distance(x1, y1, x2, y2);
     }
 }

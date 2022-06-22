@@ -1,5 +1,6 @@
 package ro.ubbcluj.econ.chargingstationlocator.locator.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -40,8 +41,9 @@ public class DetailedStationBE {
     @JsonProperty("contact")
     private ContactBE contact;
 
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonProperty("distance")
-    private float distance;
+    private double distance;
 
     @JsonProperty("plugs")
     private List<PlugsBE> plugs;

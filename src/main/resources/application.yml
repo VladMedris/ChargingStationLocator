@@ -4,6 +4,6 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/chargingstationsdatabase
-    username: root
-    password: test
+    url: jdbc:mysql://chargingstationsdatabase.cgxs21zft8r9.eu-central-1.rds.amazonaws.com:3306/chargingstationsdatabase
+    username: admin
+    password: 0c9d8818-651b-47f1-9fb3-48fd4ea54a26

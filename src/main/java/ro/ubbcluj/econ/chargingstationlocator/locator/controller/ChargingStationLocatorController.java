@@ -20,14 +20,15 @@ public class ChargingStationLocatorController {
     @Valid
     public GetStationResponseBE getStationById(final GetStationByIdRequest getStationByIdRequest,
                                                @RequestHeader(value = "business-case") String businessCase){
-        return locatorService.getStationByIdResponse(getStationByIdRequest, businessCase);
+        return locatorService.getStationByIdResponse(getStationByIdRequest, businessCase, getStationByIdRequest.getLanguage());
     }
 
     @GetMapping("charging-station-locator/clients/v1/stationsByGeolocation")
     @Valid
     public GetStationResponseBE getStationByGeolocationRequest(final GetStationsByGeolocationRequest getStationsByGeolocationRequest,
                                                                @RequestHeader(value = "business-case") String businessCase){
-        return locatorService.getStationByGeolocation(getStationsByGeolocationRequest, businessCase);
+        return locatorService.getStationByGeolocation(getStationsByGeolocationRequest, businessCase,
+                getStationsByGeolocationRequest.getLatitude(), getStationsByGeolocationRequest.getLongitude(), getStationsByGeolocationRequest.getLanguage());
     }
 
     @DeleteMapping("charging-station-locator/admin/v1/station")
