@@ -41,7 +41,7 @@ public class LocatorService {
                 return translationService.translateSimple(transformer.transformSimpleData(stations), language);
             case "detailed":
                 stations = queryDatabase.findStationByIdDetailedFormat(sb.toString()).stream().distinct().collect(Collectors.toList());
-                return translationService.translateDetailed((transformer.transformDetailedData(stations)), language);
+                return translationService.translateDetailed(transformer.transformDetailedData(stations), language);
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Unexpected business-case header value: " + businessCase.toLowerCase());
         }
